@@ -6,6 +6,13 @@ Coding challenges can either come from Cracking the Coding Interview or from Gee
 
 At the very top of the Swift file, the coding challenge description will always be included via comments.
 
+## Pre-requesites to run Swift files via Terminal
+Run the following command in your terminal
+```
+xcode-select --install
+```
+
+## Running Swift file(s)
 To run a Swift file, enter the following command in Terminal:
 ```
 swift <fileName>.swift
