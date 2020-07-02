@@ -2,6 +2,10 @@
 	LRU Cache: design and build a "least recently used" cache, which evicts the least recently used item.
 	The cache should map from keys to values and can be initialized with a max size. When it is full, it 
 	should evict the least recently used item.
+
+	To run locally, enter the following commands in terminal:
+	1) swiftc LRUCache.swift ./data-structures/Queue.swift ./data-structures/LinkedList.swift main.swift
+	2) ./main
 */
 import Foundation
 
