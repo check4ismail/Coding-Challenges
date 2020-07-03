@@ -19,6 +19,8 @@ public struct LinkedList<T> {
 		head == nil
 	}
 
+	public private(set) var count = 0
+
 	public var first: T? {
 		head?.value
 	}
@@ -55,6 +57,7 @@ public struct LinkedList<T> {
 		if tail == nil {
 			tail = head
 		}
+		count += 1
 	}
 
 	public mutating func append(_ value: T) {
@@ -65,11 +68,13 @@ public struct LinkedList<T> {
 		copyNodes()
 		tail?.next = Node(prev: tail, value: value)
 		tail = tail!.next
+		count += 1
 	}
 
 	@discardableResult
 	public mutating func pop() -> T? {
 		defer {
+			count = count > 0 ? count - 1 : 0
 			head = head?.next
 			head?.prev = nil
 			if head == nil {
@@ -82,6 +87,7 @@ public struct LinkedList<T> {
 	@discardableResult
 	public mutating func removeLast() -> T? {
 		defer {
+			count = count > 0 ? count - 1 : 0
 			tail = tail?.prev
 			tail?.next = nil
 			if tail == nil {

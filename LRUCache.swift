@@ -20,7 +20,7 @@ public struct LRUCache<Key: Hashable, Value> {
 
 	public mutating func queueTracker(_ key: Key, value: Value?) {
 		guard let value = value else { return }
-		if cache.count >= capacity {
+		if queue.count >= capacity {
 			while let key = queue.dequeueRear() {
 				if let _ = cache[key] {
 					print("Removed key: \(key)")
@@ -31,9 +31,6 @@ public struct LRUCache<Key: Hashable, Value> {
 		}
 		queue.enqueueFront(key)
 		self.cache[key] = value
-		print("After adding to queue")
-		print("Front of queue: \(queue.peekFront())")
-		print("Rear of queue: \(queue.peekRear())")
 	}
 
 	public subscript(key: Key) -> Value? {
@@ -81,12 +78,20 @@ func main() {
 	print(lruCache)
 
 	let _ = lruCache["4"] // Moves to front of queue because it's being used
+	print(lruCache)
 	
 	print("\nSetting 10 to nil")
 	lruCache["10"] = nil
+	print(lruCache)
 
 	print("\nTrying to use a nil value")
 	let _ = lruCache["10"]
+	print(lruCache)
 
+	print("\nClearing all values")
+	lruCache["4"] = nil
+	lruCache["12"] = nil
+	lruCache["11"] = nil
+	lruCache["5"] = nil
 	print(lruCache)
 }

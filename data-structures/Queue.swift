@@ -27,6 +27,10 @@ public struct DoubleEndedQueue<T> {
 
 	public init() {}
 
+	public var count: Int {
+		elements.count
+	}
+	
 	public func peekFront() -> T? {
 		return elements.first
 	}
