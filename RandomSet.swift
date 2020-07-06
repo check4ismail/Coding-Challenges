@@ -50,6 +50,7 @@ public func randomSet(m: Int, n: Int) -> [Int] {
 	print("Set with \(m) numbers - \(set)")
 	return set.randomElement()!
 }
+
 print(randomSet(m: 1, n: 5))
 print("\n")
 print(randomSet(m: 2, n: 5))
