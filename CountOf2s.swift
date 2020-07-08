@@ -22,18 +22,32 @@ public func countTwos(n: Int) {
 			base *= 10
 		}
 
-		if i % base == 2 && i / base == 2 {		// this case applies to 22
+		let twoChecker = String(i % base)
+		if twoChecker.contains("2") && i / base == 2 {		// this case applies to 22, 222, etc
 			str += "\(i) "
-			count += 2
-		} else if i % base == 2 {				// this case applies to 32
+			count += countTwosHelper(i)
+		} else if twoChecker.contains("2") {				// this case applies to 32, 122
 			str += "\(i) "
-			count += 1
-		} else if i / base == 2 {				// this case applies to 25
+			count += countTwosHelper(i)
+		} else if i / base == 2 {							// this case applies to 25
 			str += "\(i) "
 			count += 1
 		}
 	}
 	print("\(count) - \(str)")
+}
+private func countTwosHelper(_ value: Int) -> Int {
+	// count number of twos
+	var value = value
+	var newCounter = 0 
+	repeat { 
+		if value % 10 == 2 {
+			newCounter += 1
+		}
+		value /= 10
+	} while value > 0
+
+	return newCounter
 }
 
 countTwos(n: -1)
@@ -42,3 +56,6 @@ countTwos(n: 2)
 countTwos(n: 25)
 countTwos(n: 32)
 countTwos(n: 102)
+countTwos(n: 102)
+countTwos(n: 122)
+countTwos(n: 222)
