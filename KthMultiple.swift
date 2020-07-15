@@ -7,6 +7,7 @@
 func kthMultiple(k: Int) {
 	var arr: [Int] = [1, 3, 5, 7]
 	let set: Set<Int> = [3, 5, 7]
+	// Base cases without requiring calculation
 	guard k > 4 else {
 		if k < 0 {
 			return
@@ -16,27 +17,32 @@ func kthMultiple(k: Int) {
 	}	
 	
 	var currentNum = 8
-	outer: while arr.count < 7 {
-		print("currentNumber is \(currentNum)")
-		for i in 2..<currentNum {
-			if isPrime(i) {
-				if !set.contains(i) {
+	outer: while arr.count < k {
+		// no need to iterate over half the value since it won't be divisible
+		for i in 2..<currentNum/2+1 {
+			if currentNum % i == 0 {
+				if isPrime(i) && !set.contains(i) {	// if it's prime and not 3, 5, 7, continue outer loop
 					currentNum += 1
 					continue outer
 				}
 			}
 		}
-		arr.append(currentNum)
+
+		if kFactor(currentNum) {	// if it's divisible by 3, 5, or 7, then add it
+			arr.append(currentNum)
+		}
 		currentNum += 1
 	}
 
 	print(arr)
 }
 
-func isPrime(_ num: Int) -> Bool {
+func isPrime(_ num: Int) -> Bool {	// Determines if a number is prime
 	let commonPrimes: Set<Int> = [2, 3, 5, 7]
 	guard !commonPrimes.contains(num) else { return true }
-	for i in 2..<num/2 + 1 {
+	
+	// no need to iterate over half the value since it won't be divisible
+	for i in 2..<num/2 + 1 { 
 		if num % i == 0 {
 			return false
 		}
@@ -44,6 +50,19 @@ func isPrime(_ num: Int) -> Bool {
 	return true
 }
 
+func kFactor(_ num: Int) -> Bool {
+	let factors: [Int] = [3, 5, 7]
+	for factor in factors {  
+		if num % factor == 0 {
+			return true
+		}
+	}
+	return false
+}
+
+kthMultiple(k: 1)
+kthMultiple(k: 4)
 kthMultiple(k: 5)
 kthMultiple(k: 7)
 kthMultiple(k: 10)
+kthMultiple(k: 25)
