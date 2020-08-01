@@ -68,6 +68,23 @@ public class Trie<CollectionType: Collection> where CollectionType.Element:Hasha
 			current = parent
 		}
 	}
+	
+	// Custom method for Longest Word challenge that
+	// counts number of words within a collection
+	public func wordCount(_ collection: CollectionType) -> Int {
+		var current = root
+		var count = current.isTerminating ? 1 : 0
+		for element in collection {
+			guard let child = current.children[element] else {
+				return count
+			}
+			current = child
+			if current.isTerminating {
+				count += 1
+			}
+		}
+		return count
+	}
 }
 
 extension Trie where CollectionType:RangeReplaceableCollection {
